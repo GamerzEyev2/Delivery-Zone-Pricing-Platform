@@ -30,3 +30,5 @@ Thumbs.db
 # ---------- IDE ----------
 .vscode/
 "@ | Set-Content -Encoding UTF8 .gitignore
+Add-Content .gitignore "`n# Local DB`napi/zonepilot.db`n"
+
