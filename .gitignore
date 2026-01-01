@@ -1,0 +1,32 @@
+@"
+# ---------- Python ----------
+api/.venv/
+**/__pycache__/
+**/*.pyc
+**/*.pyo
+
+# env (don't push secrets)
+.env
+.env.*
+!.env.example
+!.env.local.example
+
+# ---------- Node / Next ----------
+web/node_modules/
+web/.next/
+web/.turbo/
+web/out/
+web/.env.local
+web/.env.* 
+!web/.env.local.example
+
+# ---------- Logs ----------
+*.log
+
+# ---------- OS ----------
+.DS_Store
+Thumbs.db
+
+# ---------- IDE ----------
+.vscode/
+"@ | Set-Content -Encoding UTF8 .gitignore
