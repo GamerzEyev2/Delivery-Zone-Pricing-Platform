@@ -32,3 +32,12 @@ Thumbs.db
 "@ | Set-Content -Encoding UTF8 .gitignore
 Add-Content .gitignore "`n# Local DB`napi/zonepilot.db`n"
 
+
+# PostgreSQL / local dumps
+*.sql
+*.dump
+*.backup
+
+# Local DB files (just in case)
+*.db
+
